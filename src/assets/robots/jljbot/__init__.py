@@ -1,0 +1,1 @@
+"""JLJBot robot assets."""

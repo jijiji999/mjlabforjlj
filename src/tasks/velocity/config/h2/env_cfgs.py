@@ -15,7 +15,10 @@ from mjlab.tasks.velocity.mdp import UniformVelocityCommandCfg
 from src.tasks.velocity.velocity_env_cfg import make_velocity_env_cfg
 
 
-def unitree_h2_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
+def unitree_h2_rough_env_cfg(
+  play: bool = False,
+  use_h2_action_scale: bool = False,
+) -> ManagerBasedRlEnvCfg:
   """Create Unitree H2 rough terrain velocity configuration."""
   cfg = make_velocity_env_cfg()
 
@@ -68,6 +71,8 @@ def unitree_h2_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
 
   joint_pos_action = cfg.actions["joint_pos"]
   assert isinstance(joint_pos_action, JointPositionActionCfg)
+  if use_h2_action_scale:
+    joint_pos_action.scale = H2_ACTION_SCALE
 
   cfg.viewer.body_name = "torso_link"
 
@@ -164,9 +169,15 @@ def unitree_h2_rough_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
   return cfg
 
 
-def unitree_h2_flat_env_cfg(play: bool = False) -> ManagerBasedRlEnvCfg:
+def unitree_h2_flat_env_cfg(
+  play: bool = False,
+  use_h2_action_scale: bool = False,
+) -> ManagerBasedRlEnvCfg:
   """Create Unitree H2 flat terrain velocity configuration."""
-  cfg = unitree_h2_rough_env_cfg(play=play)
+  cfg = unitree_h2_rough_env_cfg(
+    play=play,
+    use_h2_action_scale=use_h2_action_scale,
+  )
 
   cfg.sim.njmax = 300
   cfg.sim.mujoco.ccd_iterations = 50

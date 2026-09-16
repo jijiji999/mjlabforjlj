@@ -58,6 +58,7 @@ python scripts/train.py Unitree-G1-Flat \
 Available velocity tracking tasks:
   - Unitree-Go2-Flat
   - Unitree-G1-Flat
+  - Unitree-G1-Loco (12-DoF leg policy with full-body proprioception and height command)
   - Unitree-G1-23Dof-Flat
   - Unitree-H1_2-Flat
   - Unitree-A2-Flat
